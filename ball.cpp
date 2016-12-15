@@ -1,18 +1,32 @@
 #include "ball.h"
+#include <QDebug>
+#include <cmath>
 
-Ball::Ball(QGraphicsScene *sc) {
+Ball::Ball(MainWindow *w, QGraphicsScene *sc) {
+    mw = w;
     scene = sc;
-    rect.adjust(0,0,20,20);
     vy = 0.0;
     vx = 0.0;
+    qDebug() << x() << " " << y();
+
+    QTimer *timer = new QTimer;
+    timer->setInterval(1);
+    timer->start();
+    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(frame()));
 }
 
 void Ball::frame() {
-    const double g_acc = 0.2;
+    const double g_acc = 0.02;
+
+    //Coefficient of restitution
+    const double c_res = 0.8;
+    qDebug() << x() << " " << y();
 
     //If the ball hits the bottom of the frame, make it bounce (reverse direction)
-    //Additionally, subtract 1.5 to account for elastic losses
-    if (this->y() + g_acc > scene->height()) vy = -(vy + g_acc - 1.5);
+    //Multiply by c_res to account for energy loss
+    if (this->y() > scene->height()) vy = -std::abs(vy + g_acc)*(c_res);
+    //qDebug() << this->y() << " " << g_acc << " " << mw->height();
+    //qDebug() << vy;
 
     //Gravity does work
     vy += g_acc;

@@ -1,32 +1,29 @@
-#ifndef BALL_H
-#define BALL_H
-
+#ifndef CANNON_H
+#define CANNON_H
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QGraphicsScene>
 #include "mainwindow.h"
 
-class Ball : public QObject, public QGraphicsItem
+class Cannon : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 
 public:
-    Ball(MainWindow *w, QGraphicsScene *sc);
+    Cannon(MainWindow *w, QGraphicsScene *sc);
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-public slots:
-    void frame();
+//public slots:
+    //void frame();
 
 private:
     //Velocity values
     const MainWindow *mw;
     const QGraphicsScene *scene;
 
-    QRectF rect = QRectF(0,0,20,20);
-    double vy;
-    double vx;
+    QRectF rect = QRectF(0,0,80,20);
 };
 
-#endif // BALL_H
+#endif // CANNON_H

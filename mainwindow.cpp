@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "ball.h"
+#include "cannon.h"
 #include <QGraphicsItem>
 #include <QGraphicsEllipseItem>
 #include <QDesktopWidget>
@@ -14,26 +15,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QGraphicsScene *scene = new QGraphicsScene(this);
 
-    ui->graphicsView->setScene(scene);
 
-    Ball *b = new Ball(scene);
 
+    scene->setSceneRect(this->rect());
+    Ball *b = new Ball(this, scene);
+    b->setPos(0,0);
     scene->addItem(b);
 
-     /*QGraphicsRectItem *p = new QGraphicsRectItem(0, 0, 20, 50);
-     QGraphicsEllipseItem *b = new QGraphicsEllipseItem(0, 0, 20, 20);
-     b->setPos(100,100);*/
-    b->setPos(static_cast<double>(width()) * 0.5, static_cast<double>(height()) * 0.5);
+    Cannon *can = new Cannon(this, scene);
+    scene->addItem(can);
 
-    QTimer *timer = new QTimer;
-    timer->setInterval(12);
-    timer->start();
-    QObject::connect(timer, SIGNAL(timeout()), b, SLOT(frame()));
+    ui->graphicsView->setMinimumSize(700,500);
+    scene->setSceneRect(0,0,690,490);
 
-
-    ui->graphicsView->setMinimumSize(this->width(),this->height());
-
-
+    ui->graphicsView->setScene(scene);
 }
 
 MainWindow::~MainWindow()
