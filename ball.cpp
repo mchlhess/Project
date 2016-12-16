@@ -38,6 +38,26 @@ void Ball::frame() {
     //Update position
     setX(x() + vx);
     setY(y() + vy);
+
+    //Collision monitoring
+    //Loop through every item in scene
+    foreach(QGraphicsItem *g, scene->items()) {
+        //If the item is the cannon, ignore
+        if (g->type() != 65536) {
+            //Loop through every item again to match for a collision
+            foreach(QGraphicsItem *del, scene->items()) {
+                //Check if there is a collision
+                if (g->collidesWithItem(del)) {
+
+                    //Make sure it's a cannonball hitting a block or a block hitting a cannonball
+                    if ((g->type() == 3 && del->type() == 65551) || (g->type() == 65551 && del->type() == 3)) {
+                        qDebug() << "deleted";
+                        scene->removeItem(del);
+                    }
+                }
+            }
+        }
+    }
 }
 
 void Ball::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {

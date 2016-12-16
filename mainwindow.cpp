@@ -6,7 +6,7 @@
 #include <QGraphicsEllipseItem>
 #include <QDesktopWidget>
 #include <QDebug>
-#include <memory>
+#include <algorithm>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -29,10 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QTimer *timer = new QTimer(this);
     timer->setInterval(1000);
     timer->start();
-
     connect(timer, &QTimer::timeout, this, &MainWindow::genBlock);
-
-
 }
 
 void MainWindow::genBlock() {

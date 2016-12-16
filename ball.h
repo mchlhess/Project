@@ -19,13 +19,16 @@ public:
     void setVx(double v) { vx = v; }
     void setVy(double v) { vy = v; }
 
+    enum { Type = UserType + 15 };
+    int type() const { return Type; }
+
 public slots:
     void frame();
 
 private:
     //Velocity values
     const MainWindow *mw;
-    const QGraphicsScene *scene;
+    QGraphicsScene *scene;
 
     QRectF rect = QRectF(0,0,20,20);
     double vy;
