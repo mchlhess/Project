@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include "mainwindow.h"
+#include "ball.h"
 
 class Cannon : public QObject, public QGraphicsItem
 {
@@ -20,15 +21,12 @@ public:
 protected:
     bool eventFilter(QObject *, QEvent *);
     void rotate(int degrees);
-    //void fire();
-
-//public slots:
-    //void frame();
+    void fire();
 
 private:
     //Velocity values
-    const MainWindow *mw;
-    const QGraphicsScene *scene;
+    MainWindow *mw;
+    QGraphicsScene *scene;
 
     int rot = 0;
 

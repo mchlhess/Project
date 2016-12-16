@@ -15,6 +15,9 @@ public:
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void setV(int v, int ang);
+    void setVx(double v) { vx = v; }
+    void setVy(double v) { vy = v; }
 
 public slots:
     void frame();

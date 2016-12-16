@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QGraphicsScene>
 
 namespace Ui {
 class MainWindow;
@@ -16,8 +17,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void genBlock();
+
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene *scene;
 };
 
 #endif // MAINWINDOW_H

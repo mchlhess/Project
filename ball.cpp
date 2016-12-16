@@ -7,7 +7,6 @@ Ball::Ball(MainWindow *w, QGraphicsScene *sc) {
     scene = sc;
     vy = 0.0;
     vx = 0.0;
-    qDebug() << x() << " " << y();
 
     QTimer *timer = new QTimer;
     timer->setInterval(1);
@@ -15,8 +14,13 @@ Ball::Ball(MainWindow *w, QGraphicsScene *sc) {
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(frame()));
 }
 
+void Ball::setV(int v, int ang) {
+    vy = -sin(ang * 3.14159265 / 180.0)*v;
+    vx = cos(ang * 3.14159265 / 180.0)*v;
+}
+
 void Ball::frame() {
-    const double g_acc = 0.02;
+    const double g_acc = 0.003;
 
     //Coefficient of restitution
     const double c_res = 0.8;
@@ -32,7 +36,7 @@ void Ball::frame() {
     vy += g_acc;
 
     //Update position
-    setX(x());
+    setX(x() + vx);
     setY(y() + vy);
 }
 
