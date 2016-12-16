@@ -20,7 +20,7 @@ void Ball::frame() {
 
     //Coefficient of restitution
     const double c_res = 0.8;
-    qDebug() << x() << " " << y();
+    //qDebug() << x() << " " << y();
 
     //If the ball hits the bottom of the frame, make it bounce (reverse direction)
     //Multiply by c_res to account for energy loss

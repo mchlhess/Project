@@ -3,6 +3,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QGraphicsScene>
+#include <QKeyEvent>
 #include "mainwindow.h"
 
 class Cannon : public QObject, public QGraphicsItem
@@ -11,9 +12,15 @@ class Cannon : public QObject, public QGraphicsItem
 
 public:
     Cannon(MainWindow *w, QGraphicsScene *sc);
+    ~Cannon() { delete r; }
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+protected:
+    bool eventFilter(QObject *, QEvent *);
+    void rotate(int degrees);
+    //void fire();
 
 //public slots:
     //void frame();
@@ -23,7 +30,9 @@ private:
     const MainWindow *mw;
     const QGraphicsScene *scene;
 
-    QRectF rect = QRectF(0,0,80,20);
+    int rot = 0;
+
+    QGraphicsRectItem *r = new QGraphicsRectItem;
 };
 
 #endif // CANNON_H

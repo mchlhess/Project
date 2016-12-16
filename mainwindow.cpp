@@ -15,20 +15,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QGraphicsScene *scene = new QGraphicsScene(this);
 
-
-
     scene->setSceneRect(this->rect());
     Ball *b = new Ball(this, scene);
     b->setPos(0,0);
-    scene->addItem(b);
+    //scene->addItem(b);
 
-    Cannon *can = new Cannon(this, scene);
-    scene->addItem(can);
-
-    ui->graphicsView->setMinimumSize(700,500);
     scene->setSceneRect(0,0,690,490);
+    Cannon *cannon = new Cannon(this, scene);
+    scene->addItem(cannon);
 
+    ui->graphicsView->setFixedSize(700,500);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->installEventFilter(cannon);
 }
 
 MainWindow::~MainWindow()
