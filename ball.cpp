@@ -56,6 +56,10 @@ void Ball::frame() {
                     }
                 }
             }
+            if ((g->x() > 750 && g->type() == 65551) || (g->x() < 0 && g->type() == 4)) {
+                qDebug() << "wut";
+                scene->removeItem(g);
+            }
         }
     }
 }
