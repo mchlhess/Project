@@ -11,7 +11,7 @@ Ball::Ball(MainWindow *w, QGraphicsScene *sc) {
     QTimer *timer = new QTimer;
     timer->setInterval(1);
     timer->start();
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(frame()));
+    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(frame())); //Call frame every millisecond
 }
 
 void Ball::setV(int v, int ang) {

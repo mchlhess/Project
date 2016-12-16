@@ -19,18 +19,18 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 protected:
-    bool eventFilter(QObject *, QEvent *);
-    void rotate(int degrees);
-    void fire();
+    bool eventFilter(QObject *, QEvent *); //Looks for keypresses
+    void rotate(int degrees); //Rotates cannon
+    void fire(); //Creates Ball object at tip of cannon
 
 private:
     //Velocity values
     MainWindow *mw;
     QGraphicsScene *scene;
 
-    int rot = 0;
+    int rot = 0; //Stores angle of cannon
 
-    QGraphicsRectItem *r = new QGraphicsRectItem;
+    QGraphicsRectItem *r = new QGraphicsRectItem; //Bounding rectangle
 };
 
 #endif // CANNON_H

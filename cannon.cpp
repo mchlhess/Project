@@ -6,12 +6,12 @@ Cannon::Cannon(MainWindow *w, QGraphicsScene *sc)
 {
     mw = w;
     scene = sc;
-    r->setRect(0,scene->height()-30,80,20);
+    r->setRect(0,scene->height()-30,80,20); //Creates bounding rectangle
 }
 
 void Cannon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    painter->drawEllipse(15,scene->height()-30, 30, 30);
-    painter->drawRect(r->boundingRect());
+    painter->drawEllipse(15,scene->height()-30, 30, 30); //Cannon wheel
+    painter->drawRect(r->boundingRect()); //Cannon barrel
 }
 
 QRectF Cannon::boundingRect() const {
@@ -19,35 +19,41 @@ QRectF Cannon::boundingRect() const {
 }
 
 void Cannon::rotate(int degrees) {
+    //Add 3 degrees to total rotation
     rot += degrees;
+    //Sets transform point to center of cannon
     this->setTransformOriginPoint(15,scene->height()-30);
+    //Update cannon rotation
     this->setRotation(rot);
-    //this->update();
-    //qDebug("%f %f %f %f", r->boundingRect().left(), r->boundingRect().top(), r->boundingRect().right(), r->boundingRect().bottom());
 }
 
 void Cannon::fire() {
     Ball *b = new Ball(mw, scene);
+    //Creates QPointF at the center of the shape()
     auto shp = r->shape().controlPointRect();
+
     QPointF point = QPointF(shp.right(), shp.top());
 
-    float s = sin((-rot+180) * 3.14159265 / 180.0);
+    float s = sin((-rot+180) * 3.14159265 / 180.0); //Convert degrees to radians
     float c = cos((-rot+180) * 3.14159265 / 180.0);
 
-    // translate point back to origin:
+    //Subtract rotation point from the actual point
     point.setX(-shp.right() + 15);
     point.setY(-std::abs(shp.top() - (scene->height() - 30)));
 
-    // rotate point
+    //Caclulate new rotated position
     float x = point.x() * c + point.y() * s;
     float y = point.x() * s - point.y() * c;
 
-    // translate point back:
+    //Add back in subtracted control point
     point.setX(x + 15);
     point.setY(-y + scene->height() - 30);
+
+    //Update ball location
     b->setX(point.x());
     b->setY(std::abs(-point.y()));
 
+    //Set cannonball moving
     b->setV(1, -rot);
 
     scene->addItem(b);

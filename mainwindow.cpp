@@ -18,14 +18,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     scene->setSceneRect(this->rect());
 
+    //Create cannon
     scene->setSceneRect(0,0,690,490);
     Cannon *cannon = new Cannon(this, scene);
     scene->addItem(cannon);
 
+    //Estabish graphicsView things...
     ui->graphicsView->setFixedSize(700,500);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->installEventFilter(cannon);
 
+    //Create a new block every 1000ms
     QTimer *timer = new QTimer(this);
     timer->setInterval(1000);
     timer->start();
@@ -33,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::genBlock() {
-    QGraphicsRectItem *block = new QGraphicsRectItem(710, (rand() % 300) + 200, 50, 50);
+    QGraphicsRectItem *block = new QGraphicsRectItem(710, (rand() % 300) + 200, 50, 50); //Creates a block at a random height
     scene->addItem(block);
 
     qDebug() << "Block generated!";
@@ -42,6 +45,7 @@ void MainWindow::genBlock() {
     timer->setInterval(12);
     timer->start();
 
+    //Move block to the left using **lambda function** in QObject::connect call
     connect(timer, &QTimer::timeout, [=]() {
       block->setX(block->x() - 5);
     });
