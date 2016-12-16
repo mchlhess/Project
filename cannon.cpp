@@ -58,17 +58,23 @@ bool Cannon::eventFilter(QObject *target, QEvent *e)
 {
     Q_UNUSED(target);
     bool handled = false;
+
+    QTimer *timer = new QTimer;
+    timer->setInterval(20);
+    timer->start();
+
+
     if ( e->type() == QEvent::KeyPress ) {
         QKeyEvent *keyEvent = (QKeyEvent *)e;
         //Rotate cannon up
         if (keyEvent->key() == Qt::Key_Up) {
-            this->rotate(-3); //Angles are inverse because Y axis points down
+            connect(timer, QTimer::timeout, this, Cannon::rotate(-3)); //Angles are inverse because Y axis points down
             qDebug() << "Key up";
         }
 
         //Rotate cannon down
         else if (keyEvent->key() == Qt::Key_Down) {
-            this->rotate(3);
+            connect(timer, QTimer::timeout, this, Cannon::rotate(-3));
             qDebug() << "Key down";
         }
 
