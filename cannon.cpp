@@ -19,11 +19,16 @@ QRectF Cannon::boundingRect() const {
 }
 
 void Cannon::rotate(int degrees) {
-    rot += degrees;
-    this->setTransformOriginPoint(15,scene->height()-30);
-    this->setRotation(rot);
-    //this->update();
-    //qDebug("%f %f %f %f", r->boundingRect().left(), r->boundingRect().top(), r->boundingRect().right(), r->boundingRect().bottom());
+    QTimer *timer = new QTimer;
+    timer->setInterval(12);
+    timer->start();
+    connect(timer, &QTimer::timeout, []() {
+        rot += 1*;
+        this->setTransformOriginPoint(15,scene->height()-30);
+        this->setRotation(rot);
+    });
+
+
 }
 
 void Cannon::fire() {
@@ -68,13 +73,13 @@ bool Cannon::eventFilter(QObject *target, QEvent *e)
         QKeyEvent *keyEvent = (QKeyEvent *)e;
         //Rotate cannon up
         if (keyEvent->key() == Qt::Key_Up) {
-            connect(timer, QTimer::timeout, this, Cannon::rotate(-3)); //Angles are inverse because Y axis points down
+            connect(timer, SIGNAL(timeout()), this, SLOT(rotate(-3))); //Angles are inverse because Y axis points down
             qDebug() << "Key up";
         }
 
         //Rotate cannon down
         else if (keyEvent->key() == Qt::Key_Down) {
-            connect(timer, QTimer::timeout, this, Cannon::rotate(-3));
+            connect(timer, SIGNAL(timeout()), this, SLOT(rotate(3)));
             qDebug() << "Key down";
         }
 
