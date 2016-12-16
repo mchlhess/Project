@@ -18,12 +18,9 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-public signals:
-    void stoprotate();
-
 protected:
     bool eventFilter(QObject *, QEvent *);
-    //void rotate(int degrees);
+    void rotate(int degrees);
     void fire();
 
 private:

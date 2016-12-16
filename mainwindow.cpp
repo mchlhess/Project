@@ -46,7 +46,7 @@ void MainWindow::genBlock() {
 
     connect(timer, &QTimer::timeout, [=]() {
       block->setX(block->x() - 5);
-      if(block->x() < -700) { scene->removeItem(block);
+      if(block->x() < -700) {// scene->removeItem(block);
       }
       qDebug() << block->x();
     });
