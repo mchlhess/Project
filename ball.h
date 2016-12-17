@@ -25,6 +25,9 @@ public:
 public slots:
     void frame(); //Updates position of Ball as called by a timer in constructor
 
+signals:
+    void save();
+
 private:
     //Velocity values
     const MainWindow *mw;

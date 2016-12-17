@@ -19,10 +19,12 @@ public:
 
 private slots:
     void genBlock();
+    void updateBar();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
+    int score = 0;
 };
 
 #endif // MAINWINDOW_H

@@ -53,6 +53,7 @@ void Ball::frame() {
                     if ((g->type() == 3 && del->type() == 65551) || (g->type() == 65551 && del->type() == 3)) {
                         qDebug() << "deleted";
                         scene->removeItem(del);
+                        emit save();
                     }
                 }
             }

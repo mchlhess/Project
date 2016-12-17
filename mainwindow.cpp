@@ -3,6 +3,7 @@
 #include "ball.h"
 #include "cannon.h"
 #include <QGraphicsItem>
+#include <QMessageBox>
 #include <QGraphicsEllipseItem>
 #include <QDesktopWidget>
 #include <QDebug>
@@ -13,6 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QMessageBox diff;
+    diff.setWindowTitle("Game Start");
+    diff.setText("Select difficulty:");
+    QPushButton* easy = diff.addButton(tr("Difficult"), QMessageBox::YesRole);
+    QPushButton* med = diff.addButton(tr("Medium"), QMessageBox::YesRole);
+    QPushButton* hard = diff.addButton(tr("Easy"), QMessageBox::YesRole);
+    diff.exec();
 
     scene = new QGraphicsScene(this);
 
@@ -33,6 +42,11 @@ MainWindow::MainWindow(QWidget *parent) :
     timer->setInterval(1000);
     timer->start();
     connect(timer, &QTimer::timeout, this, &MainWindow::genBlock);
+}
+
+void MainWindow::updateBar() {
+    score += 1;
+    ui->progressBar->setValue(score);
 }
 
 void MainWindow::genBlock() {

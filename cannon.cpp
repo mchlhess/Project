@@ -57,6 +57,8 @@ void Cannon::fire() {
     b->setV(10, -rot);
 
     scene->addItem(b);
+
+    connect(b, SIGNAL(save()), mw, SLOT(updateBar()));
 }
 
 //Listens for keypresses and handles them accordingly
