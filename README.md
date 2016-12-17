@@ -10,7 +10,8 @@ Down arrow: aim down
 
 Spacebar: fire a cannonball
 
-***PIC 10C***
+##***PIC 10C***
 
 Lambda function: mianwindow.cpp:48-50
+
 Generic algorithm: for_each loop in ball.cpp:44:48
