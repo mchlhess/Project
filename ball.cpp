@@ -9,7 +9,7 @@ Ball::Ball(MainWindow *w, QGraphicsScene *sc) {
     vx = 0.0;
 
     QTimer *timer = new QTimer;
-    timer->setInterval(1);
+    timer->setInterval(30);
     timer->start();
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(frame())); //Call frame every millisecond
 }
@@ -20,7 +20,7 @@ void Ball::setV(int v, int ang) {
 }
 
 void Ball::frame() {
-    const double g_acc = 0.003;
+    const double g_acc = 0.03;
 
     //Coefficient of restitution
     const double c_res = 0.8;

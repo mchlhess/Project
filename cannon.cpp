@@ -54,7 +54,7 @@ void Cannon::fire() {
     b->setY(std::abs(-point.y()));
 
     //Set cannonball moving
-    b->setV(1, -rot);
+    b->setV(10, -rot);
 
     scene->addItem(b);
 }
